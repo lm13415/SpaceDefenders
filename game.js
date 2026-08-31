@@ -364,24 +364,17 @@ function update() {
   });
 
 // Laser drones blinking & fading (more blinks before firing)
+// Laser drones blinking & fading (disappear after firing)
 drones.forEach(d => {
   d.blinkTimer--;
 
   if (d.blinkTimer <= 0) {
-
-    // slower blinking
-    d.blinkTimer = 20;
-
-    // toggle visibility
     d.visible = !d.visible;
-
-    // color fade cycle
+    d.blinkTimer = 20;
+    d.blinkCount++;
     d.colorPhase = (d.colorPhase + 1) % 4;
 
-    // count blinks
-    d.blinkCount++;
-
-    // fire only after MANY blinks
+    // fire after enough blinks
     if (d.blinkCount >= 8 && !d.fired) {
       d.fired = true;
 
@@ -396,6 +389,10 @@ drones.forEach(d => {
     }
   }
 });
+
+// remove drones that have already fired
+drones = drones.filter(d => !d.fired);
+
 
   // Lasers damage player
   lasers.forEach(l => {
