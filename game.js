@@ -370,7 +370,7 @@ drones.forEach(d => {
   if (d.blinkTimer <= 0) {
 
     // slower blinking
-    d.blinkTimer = 40;
+    d.blinkTimer = 20;
 
     // toggle visibility
     d.visible = !d.visible;
